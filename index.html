@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main">
+      <!--header-->
+      <header>
+        <main class="header">
+          <section class="header-container">
+            <nav class="nav">
+              <a href="/" class="logo_container"
+                ><img class="logo" src="./images/hero.jpeg"
+              /></a>
+              <ul class="nav-menu">
+                <li>
+                  <a href="#" class="nav-menu_item">About </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-menu_item">Contact </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-menu_item">Login </a>
+                </li>
+              </ul>
+            </nav>
+          </section>
+        </main>
+      </header>
+    </div>
+    <section class="container">
+      <main class="form">
+        <div class="contianer__form">
+          <input class="form__input" id="showVal" type="text" value="0" disabled />
+
+          <table class="calculator">
+            <tr class="row">
+              <td><input type="button" class="btn_blue" value="AC"  /></td>
+              <td><input type="button" class="btn_blue" value="+/-" /></td>
+              <td><input type="button" class="btn_blue" value="%" /></td>
+              <td><input type="button" class="btn_orange" value="/" /></td>
+            </tr>
+            <tr class="row">
+              <td><input type="button" class="btn_black" value="7" /></td>
+              <td><input type="button" class="btn_black" value="8" /></td>
+              <td><input type="button" class="btn_black" value="9" /></td>
+              <td><input type="button" class="btn_orange" value="*" /></td>
+            </tr>
+            <tr class="row">
+              <td><input type="button" class="btn_black" value="4" /></td>
+              <td><input type="button" class="btn_black" value="5" /></td>
+              <td><input type="button" class="btn_black" value="6" /></td>
+              <td><input type="button" class="btn_orange" value="-" /></td>
+            </tr>
+            <tr class="row">
+              <td><input type="button" class="btn_black" value="1" /></td>
+              <td><input type="button" class="btn_black" value="2" /></td>
+              <td><input type="button" class="btn_black" value="3" /></td>
+              <td><input type="button" class="btn_orange" value="+" /></td>
+            </tr>
+
+            <tr class="row">
+              <td colspan="2"><input type="button" class="btn_black " value="0" /></td>
+              <td><input type="button" class="btn_black" value="." /></td>
+
+              <td><input type="button" class="btn_orange" value="=" /></td>
+            </tr>
+          </table>
+        </div>
+        <!-- <button class="result" id="result" onclick="showResult()">Check</button> -->
+      </main>
+    </section>
+    <footer>
+      <div class="footer">
+        <div class="footer_desc">
+          Copyright &copy; <span class="copyright">Maha Elbasuony</span>
+        </div>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
