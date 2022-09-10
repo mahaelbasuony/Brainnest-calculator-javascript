@@ -1,6 +1,6 @@
 function add(firstNum, secondNum) {
   try {
-    let experationVal = parseInt(firstNum, 10) + parseInt(secondNum, 10);
+    let experationVal = eval(firstNum) + eval(secondNum);
     if (experationVal == Infinity) return '0';
     else return experationVal;
   } catch (err) {
@@ -10,7 +10,7 @@ function add(firstNum, secondNum) {
 
 function subtract(firstNum, secondNum) {
   try {
-    let experationVal = parseInt(firstNum, 10) - parseInt(secondNum, 10);
+    let experationVal = eval(firstNum) - eval(secondNum);
     if (experationVal == Infinity) return '0';
     else return experationVal;
   } catch (err) {
@@ -19,8 +19,8 @@ function subtract(firstNum, secondNum) {
 }
 function multiply(firstNum, secondNum) {
   try {
-    let experationVal = parseInt(firstNum, 10) * parseInt(secondNum, 10);
-    if (experationVal == Infinity) return '0';
+    let experationVal = eval(firstNum) * eval(secondNum);
+    if (experationVal == Infinity) return 0;
     else return experationVal;
   } catch (err) {
     return '0';
@@ -28,16 +28,16 @@ function multiply(firstNum, secondNum) {
 }
 function divide(firstNum, secondNum) {
   try {
-    let experationVal = parseInt(firstNum, 10) / parseInt(secondNum, 10);
-    if (experationVal == Infinity) return '0';
+    let experationVal = eval(firstNum) / eval(secondNum);
+    if (experationVal == Infinity || secondNum === 0) return 'NAN';
     else return experationVal;
   } catch (err) {
-    return '0';
+    return 'err';
   }
 }
 function remainder(firstNum, secondNum) {
   try {
-    let experationVal = parseInt(firstNum, 10) % parseInt(secondNum, 10);
+    let experationVal = eval(firstNum) % eval(secondNum);
     if (experationVal == Infinity) return '0';
     else return experationVal;
   } catch (err) {
@@ -64,7 +64,7 @@ function operate(operator, firstNum, secondNum) {
 
 let firstNum = '';
 let secondnum = '';
-let operator = '';
+let operator = [];
 let number = '';
 let operatorIndex = 0;
 let oldvalue = 0;
@@ -79,19 +79,26 @@ for (let i = 0; i < allOperators.length; i++) {
   allOperators[i].addEventListener('click', function (event) {
     document.querySelector('.dot').disabled = false;
     floatNum = 0;
-    if (screen.value === '0') {
-      screen.value = '0';
-    } else {
-      if (['+', '-', '/', '%', '*'].includes(event.target.value)) {
-        operator = event.target.value;
+    // if (screen.value === '0') {
+    //   screen.value = '0';
+    // } else {
 
-        screen.value = '';
-      }
+    if (['+', '-', '/', '%', '*'].includes(event.target.value)) {
+      // operator = event.target.value;
+      operator.push(event.target.value);
+      // console.log(operator);
+      screen.value = '';
     }
+    // }
     if (firstNum && secondnum) {
-      oldvalue = operate(operator, firstNum, secondnum);
+      console.log(operator[0], firstNum, secondnum);
+      oldvalue = operate(operator[0], firstNum, secondnum);
+      operator.shift();
+      console.log(operator);
       screen.value = oldvalue;
       firstNum = oldvalue;
+
+      secondnum = '';
     }
     if (event.target.value === '=') {
       secondnum = '';
@@ -104,20 +111,22 @@ for (let i = 0; i < numbers.length; i++) {
     if (screen.value == '0') {
       screen.value = '';
     }
-    if (oldvalue) {
-      screen.value = '';
-    }
+
     if (event.target.value === '.') {
       floatNum++;
       document.querySelector('.dot').disabled = true;
     }
-
-    screen.value += event.target.value;
-    if (!operator) {
+    if (!operator.length) {
+      screen.value += event.target.value;
       firstNum = screen.value;
-      console.log(firstNum);
+      console.log('first', firstNum);
     } else {
+      if (!secondnum.length) screen.value = '';
+
+      screen.value += event.target.value;
+
       secondnum = screen.value;
+      console.log('second', secondnum);
     }
   });
 }
@@ -137,7 +146,7 @@ function clearValue() {
   firstNum = '';
   secondnum = '';
   oldvalue = '';
-  operator = '';
+  operator = [];
 }
 
 function del() {
@@ -149,6 +158,7 @@ function del() {
 }
 
 window.addEventListener('keydown', function (event) {
+  console.log(event.key);
   const isNumber = /^[0-9]$/i.test(event.key);
   let operators = ['+', '-', '/', '%', '*'];
   document.querySelector('.dot').disabled = false;
@@ -156,57 +166,49 @@ window.addEventListener('keydown', function (event) {
   if (screen.value === '0') {
     screen.value = '0';
   } else {
-    if (operators.includes(event.key)) {
-      operator = event.key;
-
-      screen.value = '';
-    }
-  }
-  if (firstNum && secondnum) {
-    oldvalue = operate(operator, firstNum, secondnum);
-    screen.value = oldvalue;
-    firstNum = oldvalue;
-  }
-  if (event.key === '=') {
-    secondnum = '';
-
-  }
-  if (isNumber) {
-    if (screen.value == '0') {
-      screen.value = '';
-    }
-    if (oldvalue) {
-      screen.value = '';
+    if (event.key === 'Backspace') {
+      del();
     }
     if (event.key === '.') {
       floatNum++;
       document.querySelector('.dot').disabled = true;
     }
-
-    screen.value += event.key;
-    if (!operator) {
-      firstNum = screen.value;
-      console.log(firstNum);
-    } else {
-      secondnum = screen.value;
+    if (operators.includes(event.key)) {
+      operator.push(event.key);
+      // console.log(operator);
+      screen.value = '';
     }
-
   }
 
-});
+  if (firstNum && secondnum) {
+    console.log(operator[0], firstNum, secondnum);
+    oldvalue = operate(operator[0], firstNum, secondnum);
+    operator.shift();
+    console.log(operator);
+    screen.value = oldvalue;
+    firstNum = oldvalue;
 
-// window.addEventListener('keydown', function (event) {
-//   const isNumber = /^[0-9]$/i.test(event.key);
-//   let operators = ['+', '-', '/', '%', '*'];
-//   if (isNumber || operators.includes(event.key)) {
-//     if (document.getElementById('showVal').value != '0')
-//       document.getElementById('showVal').value += event.key;
-//     else {
-//       document.getElementById('showVal').value = '';
-//       document.getElementById('showVal').value += event.key;
-//     }
-//   }
-//   if (event.key === '=') {
-//     calculate();
-//   }
-// });
+    secondnum = '';
+  }
+  if (event.key === '=') {
+    secondnum = '';
+  }
+  if (isNumber) {
+    if (screen.value == '0') {
+      screen.value = '';
+    }
+
+    if (!operator.length) {
+      screen.value += event.key;
+      firstNum = screen.value;
+      console.log('first', firstNum);
+    } else {
+      if (!secondnum.length) screen.value = '';
+
+      screen.value += event.key;
+
+      secondnum = screen.value;
+      console.log('second', secondnum);
+    }
+  }
+});
