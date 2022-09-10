@@ -1,6 +1,6 @@
 function add(firstNum, secondNum) {
   try {
-    let experationVal = eval(firstNum) + eval(secondNum);
+    let experationVal = Number(firstNum) + Number(secondNum);
     if (experationVal == Infinity) return '0';
     else return experationVal;
   } catch (err) {
@@ -10,7 +10,7 @@ function add(firstNum, secondNum) {
 
 function subtract(firstNum, secondNum) {
   try {
-    let experationVal = eval(firstNum) - eval(secondNum);
+    let experationVal = Number(firstNum) - Number(secondNum);
     if (experationVal == Infinity) return '0';
     else return experationVal;
   } catch (err) {
@@ -19,7 +19,7 @@ function subtract(firstNum, secondNum) {
 }
 function multiply(firstNum, secondNum) {
   try {
-    let experationVal = eval(firstNum) * eval(secondNum);
+    let experationVal = Number(firstNum) * Number(secondNum);
     if (experationVal == Infinity) return 0;
     else return experationVal;
   } catch (err) {
@@ -28,8 +28,8 @@ function multiply(firstNum, secondNum) {
 }
 function divide(firstNum, secondNum) {
   try {
-    let experationVal = eval(firstNum) / eval(secondNum);
-    if (experationVal == Infinity || secondNum === 0) return 'NAN';
+    let experationVal = Number(firstNum) / Number(secondNum);
+    if (experationVal == Infinity || secondNum === 0) return 'Infinity value';
     else return experationVal;
   } catch (err) {
     return 'err';
@@ -37,7 +37,7 @@ function divide(firstNum, secondNum) {
 }
 function remainder(firstNum, secondNum) {
   try {
-    let experationVal = eval(firstNum) % eval(secondNum);
+    let experationVal = Number(firstNum) % Number(secondNum);
     if (experationVal == Infinity) return '0';
     else return experationVal;
   } catch (err) {
@@ -174,6 +174,7 @@ window.addEventListener('keydown', function (event) {
       document.querySelector('.dot').disabled = true;
     }
     if (operators.includes(event.key)) {
+      document.querySelector('.operator').opacity = 0.2;
       operator.push(event.key);
       // console.log(operator);
       screen.value = '';
