@@ -99,6 +99,9 @@
   border-radius: 5px;
   padding: 4px;
 }
+.btn_black:focus , .btn_orange:focus, .btn_blue:focus {
+ opacity: 0.9;
+}
 .btn_orange{
   font-size: 25px;
   width: 100%;
